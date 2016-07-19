@@ -1,7 +1,11 @@
 var socket = io();
+var name = getQueryVariable('name');
+var room = getQueryVariable('room');
 
 socket.on('connect', function () {
     console.log('Client connected!');
+    console.log(name + ' joined ' + room + '!');
+
 });
 
 socket.on('message', function (message) {
