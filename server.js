@@ -3,18 +3,20 @@ var express = require('express');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var moment = require('moment');
 
 app.use(express.static(__dirname + '/public'));
 
 io.on('connection', function (socket) {
-    console.log('Connected via IO');
 
     socket.emit('message', {
-        text: 'Welcome to the chat app!'
+        text: 'Start typing and hit enter to send a <i>Cüik</i> message!',
+        timeStamp: moment().format('x').valueOf()
     });
 
     socket.on('message', function (message) {
         console.log('Message received: ' + message.text);
+        message.timeStamp = moment().format('x');
         io.emit('message', message);
     });
 
