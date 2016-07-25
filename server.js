@@ -10,6 +10,7 @@ app.use(express.static(__dirname + '/public'));
 io.on('connection', function (socket) {
 
     socket.emit('message', {
+        name: 'System',
         text: 'Start typing and hit enter to send a <i>Cüik</i> message!',
         timeStamp: moment().format('x').valueOf()
     });
