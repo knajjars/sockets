@@ -11,17 +11,31 @@ var clientInfo = {};
 
 io.on('connection', function (socket) {
 
+    socket.on('disconnect', function () {
+        var userData = clientInfo[socket.id];
+
+        if (typeof userData !== 'undefined') {
+            socket.leave(userData.room);
+            io.to(userData.room).emit('message', {
+                name: 'Cüik spy',
+                text: userData.name + ' has left :(',
+                timeStamp: moment().valueOf()
+            });
+            delete clientInfo[socket.id];
+        }
+    });
+
     socket.emit('message', {
-        name: 'System',
+        name: 'Cüik spy',
         text: 'Start typing and hit enter to send a <i>Cüik</i> message!',
         timeStamp: moment().format('x').valueOf()
     });
 
-    socket.on('joinRoom', function(req){
+    socket.on('joinRoom', function (req) {
         clientInfo[socket.id] = req;
         socket.join(req.room);
         socket.broadcast.to(req.room).emit('message', {
-            name: 'System',
+            name: 'Cüik spy',
             text: req.name + ' has joined!',
             timeStamp: moment().valueOf()
         })
