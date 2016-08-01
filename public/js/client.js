@@ -12,8 +12,12 @@ socket.on('connect', function () {
 
 socket.on('message', function (message) {
     var momentStamp = message.timeStamp;
+    var $messages = $('.messages');
+    var $message = $('<li class="list-group-item"></li>');
 
-    $('.message').append('<p><strong>' +  moment().local().utc(momentStamp).format('h:mm a') + ' ' + message.name + ': </strong>' + message.text + '</p>');
+    $message.append('<p><strong>' + message.name + '</strong> ' +  moment().local().utc(momentStamp).format('h:mm a') + '</p>');
+    $message.append('<p>' + message.text + '</p>');
+    $messages.append($message);
 });
 
 $('#message-form').on('submit', function (event) {
