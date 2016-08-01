@@ -26,12 +26,17 @@ socket.on('message', function (message) {
     $message.append('<p>' + message.text + '</p>');
     $messages.append($message);
 
+    $(".scrollable").animate({ scrollTop: $('.scrollable')[0].scrollHeight}, 200);
+
 });
 
 $('#message-form').on('submit', function (event) {
 
     event.preventDefault();
     var message = $('#message');
+    if(message.val().trim() === '') {
+        return;
+    }
 
     socket.emit('message', {
         name: name,
@@ -39,5 +44,6 @@ $('#message-form').on('submit', function (event) {
     });
 
     message.val('');
+    $(".scrollable").animate({ scrollTop: $('.scrollable')[0].scrollHeight}, 200);
 
 });
