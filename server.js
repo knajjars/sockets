@@ -66,7 +66,6 @@ io.on('connection', function (socket) {
     });
 
     socket.on('message', function (message) {
-        console.log('Message received: ' + message.text);
 
         if (message.text === '@currentUsers') {
             sendCurrentUsers(socket);
