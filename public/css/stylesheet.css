@@ -17,10 +17,18 @@ h1 {
     text-align: center;
 }
 
+.alignCenter {
+    text-align: center;
+}
+
 .submitBtn {
     display: none;
 }
 
 .scrollable {
     overflow: scroll;
+}
+
+.space {
+    margin: 3px 0;
 }

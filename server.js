@@ -26,9 +26,10 @@ function sendCurrentUsers(socket) {
     });
 
     socket.emit('message', {
-        name: 'System',
+        name: 'Cüik spy',
         text: 'Current users: ' + users.join(', '),
-        timestamp: moment().valueOf()
+        timestamp: moment().valueOf(),
+        master: "info"
     });
 }
 
@@ -43,7 +44,8 @@ io.on('connection', function (socket) {
             io.to(userData.room).emit('message', {
                 name: 'Cüik spy',
                 text: userData.name + ' has left :(',
-                timeStamp: moment().valueOf()
+                timeStamp: moment().valueOf(),
+                master: "danger"
             });
             delete clientInfo[socket.id];
         }
@@ -52,7 +54,8 @@ io.on('connection', function (socket) {
     socket.emit('message', {
         name: 'Cüik spy',
         text: 'Start typing and hit enter to send a <i>Cüik</i> message!',
-        timeStamp: moment().format('x').valueOf()
+        timeStamp: moment().format('x').valueOf(),
+        master: "info"
     });
 
     socket.on('joinRoom', function (req) {
@@ -61,7 +64,8 @@ io.on('connection', function (socket) {
         socket.broadcast.to(req.room).emit('message', {
             name: 'Cüik spy',
             text: req.name + ' has joined!',
-            timeStamp: moment().valueOf()
+            timeStamp: moment().valueOf(),
+            master: "success"
         })
     });
 
